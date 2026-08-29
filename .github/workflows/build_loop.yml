@@ -193,7 +193,7 @@ jobs:
           # Submodule Loop patches:
           # Template for customizing submodule Loop (changes Loop app name to "CustomLoop")
           # Remove the "#" sign from the beginning of the line below to activate:
-                    for f in Icon-Notification-40.png Icon-Small-60.png Icon-Small@2x.png Icon-Small@3x.png Icon-Small-40@2x.png Icon-Small-60@2x.png Icon-60@2x.png Icon-60@3x.png Icon-Notification-20.png Icon-Notification-42.png Icon-Small.png Icon-Small@2x-1.png Icon-Notification-41.png Icon-Small-40@2x-1.png Icon-76.png Icon-76@2x.png Icon-83.5@2x.png AppStore-1024pt@1x.png; do curl -sL -o "Loop/DerivedAssetsBase.xcassets/AppIcon.appiconset/$f" "https://raw.githubusercontent.com/alhumaidhi/Loop/sara-custom/Loop/DerivedAssetsBase.xcassets/AppIcon.appiconset/$f"; done
+                              for f in Icon-Notification-40.png Icon-Small-60.png Icon-Small@2x.png Icon-Small@3x.png Icon-Small-40@2x.png Icon-Small-60@2x.png Icon-60@2x.png Icon-60@3x.png Icon-Notification-20.png Icon-Notification-42.png Icon-Small.png Icon-Small@2x-1.png Icon-Notification-41.png Icon-Small-40@2x-1.png Icon-76.png Icon-76@2x.png Icon-83.5@2x.png AppStore-1024pt@1x.png; do curl -sS --retry 5 --retry-delay 2 --retry-all-errors -L -o "Loop/DerivedAssetsBase.xcassets/AppIcon.appiconset/$f" "https://raw.githubusercontent.com/alhumaidhi/Loop/sara-custom/Loop/DerivedAssetsBase.xcassets/AppIcon.appiconset/$f" || echo "FAILED $f"; done
 
           # Submodule LoopKit patches:
           # General template for customizing submodule LoopKit 
