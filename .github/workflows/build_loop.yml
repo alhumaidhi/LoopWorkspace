@@ -6,7 +6,7 @@ on:
 env:
   GH_PAT: ${{ secrets.GH_PAT }}
   UPSTREAM_REPO: LoopKit/LoopWorkspace
-  UPSTREAM_BRANCH: ${{ github.ref_name }} # branch on upstream repository to sync from (replace with specific branch name if needed)
+  UPSTREAM_BRANCH: dev # pancreas branch: never auto-synced (custom code); update manually
   TARGET_BRANCH: ${{ github.ref_name }} # target branch on fork to be kept in sync
 
 jobs:
@@ -94,7 +94,7 @@ jobs:
       - name: Sync upstream changes
         if: | # do not run the upstream sync action on the upstream repository
           steps.workflow-permission.outputs.has_permission == 'true' &&
-          vars.SCHEDULED_SYNC != 'false' && github.repository_owner != 'LoopKit'
+          vars.SCHEDULED_SYNC != 'false' && github.repository_owner != 'LoopKit' && github.ref_name != 'pancreas'
         id: sync
         uses: aormsby/Fork-Sync-With-Upstream-action@v3.4.2
         with:
@@ -193,12 +193,12 @@ jobs:
           # Submodule Loop patches:
           # Template for customizing submodule Loop (changes Loop app name to "CustomLoop")
           # Remove the "#" sign from the beginning of the line below to activate:
-                                        for f in Icon-Notification-40.png Icon-Small-60.png Icon-Small@2x.png Icon-Small@3x.png Icon-Small-40@2x.png Icon-Small-60@2x.png Icon-60@2x.png Icon-60@3x.png Icon-Notification-20.png Icon-Notification-42.png Icon-Small.png Icon-Small@2x-1.png Icon-Notification-41.png Icon-Small-40@2x-1.png Icon-76.png Icon-76@2x.png Icon-83.5@2x.png AppStore-1024pt@1x.png; do curl -sS --max-time 20 --connect-timeout 10 -L "https://raw.githubusercontent.com/alhumaidhi/Loop/sara-custom/Loop/DerivedAssetsBase.xcassets/AppIcon.appiconset/$f" > "Loop/DerivedAssetsBase.xcassets/AppIcon.appiconset/$f" || echo "FAILED $f"; done
+          #curl https://github.com/loopnlearn/Loop/commit/d206432b024279ef710df462b20bd464cd9682d4.patch | git apply --directory=Loop -v --whitespace=fix
 
           # Submodule LoopKit patches:
           # General template for customizing submodule LoopKit 
           # Copy url from a GitHub commit or pull request and insert below, and remove the "#" sign from the beginning of the line to activate:
-                    curl -L https://github.com/alhumaidhi/LoopKit/commit/a2b5c11.patch | git apply --directory=LoopKit -v --whitespace=fix
+          #curl url_to_github_commit.patch | git apply --directory=LoopKit -v --whitespace=fix
 
           # Submodule xxxxx patches:
 
